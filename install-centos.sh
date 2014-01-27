@@ -13,13 +13,17 @@ xenserver_password="$2"
 install_password="$3"
 install_repository="$4"
 
+function sshcommand() {
+    sshpass -p "$xenserver_password" ssh -o StrictHostKeyChecking=no "$xenserver_username"@"$xenserver_host" "$@"
+}
+
 function xecommand() {
-    xe -s $xenserver_host -u $xenserver_username -pw $xenserver_password "$@"
+    sshcommand xe "$@"
 }
 
 xenserver_username="root"
 vm_name="MyCentOs"
-template_name="CentOS 6 (64-bit)"
+template_name="'CentOS 6 (64-bit)'"
 kickstart_file="anaconda-ks.cfg"
 bridge="xenbr0"
 
@@ -38,7 +42,7 @@ sed -i  -e "s/<install_repository>/$escaped_install_repository/g" \
         "$temp_kickstart_path"
 sshpass -p "$xenserver_password" scp -o StrictHostKeyChecking=no "$temp_kickstart_path" "$xenserver_username"@"$xenserver_host":/opt/xensource/www/
 rm -f "$temp_kickstart_path"
-new_pv_args="$old_pv_args ks=http://$xenserver_host/$temp_kickstart_filename"
+new_pv_args="'$old_pv_args ks=http://$xenserver_host/$temp_kickstart_filename'"
 xecommand vm-param-set uuid="$vm_uuid"\
     other-config:install-methods=http \
     other-config:install-repository="$install_repository" \
@@ -52,7 +56,7 @@ while [[ "$vm_uuid" == $(xecommand vm-list uuid="$vm_uuid" power-state=running -
     sleep 3
 done
 
-sshpass -p "$xenserver_password" ssh -o StrictHostKeyChecking=no "$xenserver_username"@"$xenserver_host" "rm /opt/xensource/www/$temp_kickstart_filename"
+sshcommand "rm /opt/xensource/www/$temp_kickstart_filename"
 xecommand vm-cd-eject vm="$vm_uuid"
 
 echo $vm_uuid
