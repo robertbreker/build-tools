@@ -16,12 +16,12 @@ vhd_util="http://download.cloud.com.s3.amazonaws.com/tools/vhd-util"
 yum -y upgrade
 yum -y install ntp
 
-wget "$ccp"
+wget -q "$ccp"
 tar zxf ${ccp%%/*}
 cd ${ccp%.tar.gz}
 ./install.sh -m
 
-wget "$vhd_util"
+wget -q "$vhd_util"
 mv vhd-util /usr/share/cloudstack-common/scripts/vm/hypervisor/xenserver/
 
 yum -y install mysql-server mysql
