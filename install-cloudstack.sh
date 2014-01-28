@@ -16,7 +16,7 @@ vhd_util="http://download.cloud.com.s3.amazonaws.com/tools/vhd-util"
 yum -y upgrade
 yum -y install ntp
 
-wget "$ccp"
+wget -q "$ccp"
 ccp_filename=${ccp##*/}
 tar zxf $ccp_filename
 ccp_dirname=${ccp_filename%.tar.gz}
