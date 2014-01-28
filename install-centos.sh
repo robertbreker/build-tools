@@ -18,12 +18,12 @@ function sshcommand() {
 }
 
 function xecommand() {
-    sshcommand xe "$@"
+    xe -s "$xenserver_host" -u "root" -pw "$xenserver_password" "$@"
 }
 
 xenserver_username="root"
 vm_name="MyCentOs"
-template_name="'CentOS 6 (64-bit)'"
+template_name="CentOS 6 (64-bit)"
 kickstart_file="anaconda-ks.cfg"
 bridge="xenbr0"
 
@@ -42,7 +42,7 @@ sed -i  -e "s/<install_repository>/$escaped_install_repository/g" \
         "$temp_kickstart_path"
 sshpass -p "$xenserver_password" scp -o StrictHostKeyChecking=no "$temp_kickstart_path" "$xenserver_username"@"$xenserver_host":/opt/xensource/www/
 rm -f "$temp_kickstart_path"
-new_pv_args="'$old_pv_args ks=http://$xenserver_host/$temp_kickstart_filename'"
+new_pv_args="$old_pv_args ks=http://$xenserver_host/$temp_kickstart_filename"
 xecommand vm-param-set uuid="$vm_uuid"\
     other-config:install-methods=http \
     other-config:install-repository="$install_repository" \
