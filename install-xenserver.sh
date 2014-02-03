@@ -2,6 +2,8 @@
 
 set -eux
 
+source utils
+
 if [ "$#" -ne 3 ]; then
         echo "Invalid parameters"
         echo "Usage: $0 xenserver_host xenserver_password password"
@@ -21,7 +23,8 @@ if [[ "$networkuuid" == "" ]]; then
     networkuuid=$(xecommand network-create name-label="$NETWORK_NAME")
 fi
 
-git clone https://github.com/robertbreker/virtual-hypervisor.git -b minorbugfixes
+fetch_git_repo https://github.com/robertbreker/virtual-hypervisor.git -b minorbugfixes
+
 cd virtual-hypervisor/scripts
 ./generate_answerfile.sh static -h MyXenServer -i 192.168.56.10 -m 255.255.255.0 -p "$PASSWORD" > answerfile.xml
 #if [ ! -f main.iso ]; then

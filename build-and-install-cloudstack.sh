@@ -2,9 +2,11 @@
 
 set -eux
 
+source utils
+
 yum -y install git
 cd /opt
-git clone https://github.com/apache/cloudstack.git
+fetch_git_repo https://github.com/apache/cloudstack.git
 
 // Option 1: Build
 cd cloudstack
