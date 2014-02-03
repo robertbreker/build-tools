@@ -14,9 +14,12 @@ DEVICE=eth1
 BOOTPROTO=none
 NETMASK=255.255.255.0
 TYPE=Ethernet
-HWADDR=da:dd:8b:c1:24:9e
+HWADDR=<mac>
 IPADDR=192.168.56.1
 EOL
+mac=$(cat /sys/class/net/eth1/address)
+sed -i "s/<mac>/$mac/g" /etc/sysconfig/networking/devices/ifcfg-eth1
+service network restart
 
 yum -y groupinstall "Development Tools"
 yum -y install java-1.7.0-openjdk-devel genisoimage ws-commons-util MySQL-python tomcat6 createrepo
