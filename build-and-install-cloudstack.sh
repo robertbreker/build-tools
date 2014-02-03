@@ -2,13 +2,12 @@
 
 set -eux
 
-source utils
+. ./functions.sh
 
 yum -y install git
 cd /opt
 fetch_git_repo https://github.com/apache/cloudstack.git
 
-// Option 1: Build
 cd cloudstack
 cd packaging/centos63
 wget http://repo1.maven.org/maven2/org/apache/axis2/mex/1.5.4/mex-1.5.4-impl.jar -O /root/.m2/repository/org/apache/axis2/mex/1.5.4/mex-1.5.4-impl.jar

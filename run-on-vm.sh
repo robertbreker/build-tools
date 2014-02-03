@@ -19,10 +19,10 @@ SCRIPT=$5
 XENSERVER_USERNAME="root"
 
 # Make sure that the VM exists
-xecommand vm-list uuid="$VMUUID" | exit 1
+xecommand vm-list uuid="$VMUUID" || exit 1
 
 # Make sure that the VM is running
-xecommand vm-start uuid="$VMUUID" | true
+xecommand vm-start uuid="$VMUUID" || true
 
 # Wait for SSH
 ip=""

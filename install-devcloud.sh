@@ -2,8 +2,6 @@
 
 set -eux
 
-source utils
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ./configure-nfs.sh
@@ -31,7 +29,8 @@ export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
 
 yum -y install git
 cd /opt
-fetch_git_repo https://github.com/apache/cloudstack.git -b 4.3
+. "$DIR"/functions.sh
+fetch_git_repo https://github.com/apache/cloudstack.git -b 4.2
 cd cloudstack
 
 "$DIR"/configure-vhdutil.sh
