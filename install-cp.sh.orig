@@ -1,0 +1,56 @@
+#!/bin/bash
+
+set -eux
+
+if [ "$#" -ne 2 ]; then
+        echo "Invalid parameters"
+<<<<<<< HEAD
+        echo "Usage: $0 CPP_URL SYSTEMVM_URL"
+        exit 1
+fi
+
+CPP_URL=$1
+SYSTEMVM_URL=$2
+=======
+        echo "Usage: $0 ccp systemvm"
+        exit 1
+fi
+
+ccp=$1
+systemvm=$2
+>>>>>>> d200d646daff5d5ababbff6f1ab7275a7e449969
+
+yum -y upgrade
+yum -y install ntp
+
+<<<<<<< HEAD
+wget -q "$CPP_URL"
+CPP_URL_filename=${CPP_URL##*/}
+tar zxf $CPP_URL_filename
+CPP_URL_dirname=${CPP_URL_filename%.tar.gz}
+cd $CPP_URL_dirname
+=======
+wget -q "$ccp"
+ccp_filename=${ccp##*/}
+tar zxf $ccp_filename
+ccp_dirname=${ccp_filename%.tar.gz}
+cd $ccp_dirname
+>>>>>>> d200d646daff5d5ababbff6f1ab7275a7e449969
+./install.sh -m
+
+./configure-vhdutil.sh
+mv vhd-util /usr/share/cloudstack-common/scripts/vm/hypervisor/xenserver/
+./configure-nfs.sh
+./configure-mysql.sh
+
+<<<<<<< HEAD
+cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root
+cloudstack-setup-management
+
+/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt -m /export/secondary -u $SYSTEMVM_URL -h xenserver
+=======
+cloudstack-setup-databases cloud:cloud@localhost --deploy-as=root:cloud
+cloudstack-setup-management
+
+/usr/share/cloudstack-common/scripts/storage/secondary/cloud-install-sys-tmplt -m /export/secondary -u $systemvm -h xenserver
+>>>>>>> d200d646daff5d5ababbff6f1ab7275a7e449969
