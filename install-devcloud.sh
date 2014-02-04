@@ -33,7 +33,7 @@ export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
 yum -y install git
 cd /opt
 . "$DIR"/functions.sh
-fetch_git_repo https://github.com/apache/cloudstack.git -b 4.2
+fetch_git_repo https://github.com/apache/cloudstack.git -b 4.3
 cd cloudstack
 
 "$DIR"/configure-vhdutil.sh
@@ -46,7 +46,8 @@ mvn -pl :cloud-client-ui jetty:run &
 
 sleep 120
 
-/opt/cloudstack/scripts/storage/secondary/cloud-install-sys-tmplt -m /export/secondary -u http://d21ifhcun6b1t2.cloudfront.net/templates/4.2/systemvmtemplate-2013-07-12-master-xen.vhd.bz2 -h xenserver -o "localhost" -r root
+#/opt/cloudstack/scripts/storage/secondary/cloud-install-sys-tmplt -m /export/secondary -u http://d21ifhcun6b1t2.cloudfront.net/templates/4.2/systemvmtemplate-2013-07-12-master-xen.vhd.bz2 -h xenserver -o "localhost" -r root
+/opt/cloudstack/scripts/storage/secondary/cloud-install-sys-tmplt -m /export/secondary -u http://jenkins.buildacloud.org/view/master/job/build-systemvm-master/lastSuccessfulBuild/artifact/tools/appliance/dist/systemvmtemplate-2014-02-03-master-xen.vhd.bz2 -h xenserver -F -o "localhost" -r root
 
 sed -i "s/nfs:\/\/192.168.56.10\/opt\/storage\//nfs:\/\/192.168.56.1\/external\//g" tools/devcloud/devcloud.cfg
 rpm -i http://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm

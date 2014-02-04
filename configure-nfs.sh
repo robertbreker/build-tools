@@ -3,7 +3,6 @@
 set -eux
 
 yum -y install nfs-utils
-chkconfig rpcbind on
 mkdir -p /export/primary
 mkdir -p /export/secondary
 echo "/export  *(rw,async,no_root_squash,no_subtree_check)" >> /etc/exports
@@ -29,3 +28,7 @@ iptables -A INPUT -m state --state NEW -p udp --dport 875 -j ACCEPT
 iptables -A INPUT -m state --state NEW -p tcp --dport 662 -j ACCEPT
 iptables -A INPUT -m state --state NEW -p udp --dport 662 -j ACCEPT
 service iptables save
+
+chkconfig rpcbind on
+chkconfig nfs on
+service nfs start
