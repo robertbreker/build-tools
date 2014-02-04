@@ -30,8 +30,9 @@ cd ~
 wget http://apache.mirror.anlx.net/maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
 cd /usr/local
 tar zxf ~/apache-maven-3.1.1-bin.tar.gz
-export PATH=/usr/local/apache-maven-3.1.1/bin/:$PATH
-export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
+echo "export PATH=/usr/local/apache-maven-3.1.1/bin/:$PATH" >> ~/.bashrc
+echo "export JAVA_HOME=/usr/lib/jvm/jre-1.7.0-openjdk.x86_64/" >> ~/.bashrc
+. ~/.bashrc
 
 yum -y install git
 cd /opt
