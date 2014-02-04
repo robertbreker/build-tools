@@ -2,7 +2,7 @@
 
 set -eux
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -le 3 ]; then
         echo "Invalid parameters"
         echo "Usage: $0 XENSERVER_HOST XENSERVER_PASSWORD INSTALL_PASSWORD INSTALL_ISO"
         exit 1
