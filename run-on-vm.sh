@@ -30,7 +30,7 @@ while [[ $ip == "" ]]; do
     sleep 1
     ip=$(xecommand vm-param-get uuid="$VMUUID" param-name=networks | sed -ne 's,^.*0/ip: \([0-9.]*\).*$,\1,p')
     if [[ $ip != "" ]]; then
-        if [[ $(sshcommand "echo ok") != "ok" ]]; then
+        if [[ $(sshpass -p "$VMPASSWORD" ssh -o StrictHostKeyChecking=no root@"$ip" "echo ok") != "ok" ]]; then
             ip=""
         fi
     fi
