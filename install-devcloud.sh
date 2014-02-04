@@ -16,6 +16,9 @@ NETMASK=255.255.255.0
 TYPE=Ethernet
 HWADDR=<mac>
 IPADDR=192.168.56.1
+IPV6INIT=no
+ONBOOT=yes
+USERCTL=no
 EOL
 mac=$(cat /sys/class/net/eth1/address)
 sed -i "s/<mac>/$mac/g" /etc/sysconfig/networking/devices/ifcfg-eth1
