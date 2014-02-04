@@ -7,6 +7,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ./configure-nfs.sh
 ./configure-mysql.sh
 
+./configure-internal-network.sh
+
+
 cat >/etc/sysconfig/networking/devices/ifcfg-eth1 <<EOL
 # Please read /usr/share/doc/initscripts-*/sysconfig.txt
 # for the documentation of these parameters.

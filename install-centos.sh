@@ -26,6 +26,10 @@ vbd_uuid=$(xecommand vbd-list vm-uuid="$vm_uuid" --minimal)
 vdi_uuid=$(xecommand vbd-param-get param-name=vdi-uuid uuid="$vbd_uuid" --minimal)
 xecommand vdi-resize uuid="$vdi_uuid" disk-size=15GiB
 
+./configure-internal-network.sh
+vif_uuid=$(xecommand vif-create device=1 network-uuid=$network_uuid vm-uuid=vm_uuid)
+xecommand vif-plug uuid=$vif_uuid
+
 old_pv_args=$(xecommand vm-param-get uuid="$vm_uuid" param-name=PV-args --minimal)
 temp_kickstart_path=$(mktemp)
 temp_kickstart_filename=$(basename "$temp_kickstart_path")

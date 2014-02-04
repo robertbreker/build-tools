@@ -15,12 +15,7 @@ XENSERVER_PASSWORD=$2
 INSTALL_PASSWORD=$3
 INSTALL_ISO=$4
 
-NETWORK_NAME="internal-network"
-
-networkuuid=$(xecommand network-list name-label="$NETWORK_NAME" --minimal)
-if [[ "$networkuuid" == "" ]]; then
-    networkuuid=$(xecommand network-create name-label="$NETWORK_NAME")
-fi
+./configure-internal-network.sh
 
 fetch_git_repo https://github.com/robertbreker/virtual-hypervisor.git -b minorbugfixes
 
