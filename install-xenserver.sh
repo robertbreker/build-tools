@@ -25,7 +25,7 @@ fi
 fetch_git_repo https://github.com/robertbreker/virtual-hypervisor.git -b minorbugfixes
 
 cd virtual-hypervisor/scripts
-./generate_answerfile.sh static -h HvmXenServer -i 192.168.56.10 -m 255.255.255.0 -p "$INSTALL_PASSWORD" > answerfile.xml
+./generate_answerfile.sh static -h HvmXenServer -i 192.168.56.10 -m 255.255.255.0 -g 192.168.56.1 -p "$INSTALL_PASSWORD" > answerfile.xml
 wget -q "$INSTALL_ISO" -O main.iso
 ./create_customxs_iso.sh main.iso customxs.iso answerfile.xml
 sshpass -p "$XENSERVER_PASSWORD" ./xs_start_create_vm_with_cdrom.sh customxs.iso "$XENSERVER_HOST" "$NETWORK_NAME" xenserver

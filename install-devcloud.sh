@@ -61,6 +61,8 @@ python setup.py install
 cd ../..
 mvn -P developer -pl tools/devcloud -Ddeploysvr
 
-echo 1 > /proc/sys/net/ipv4/ip_forward
-
-
+sysctl -w net.ipv4.ip_forward=1
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -A FORWARD -i eth1 -j ACCEPT
+iptables -A FORWARD -o eth1 -j ACCEPT
+service iptables save
