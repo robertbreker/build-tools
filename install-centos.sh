@@ -42,8 +42,8 @@ xecommand vm-param-set uuid="$vm_uuid"\
     other-config:install-repository="$INSTALL_REPOSITORY" \
     PV-args="$new_pv_args"
 network_uuid=$(xecommand network-list bridge="$bridge" --minimal)
-xecommand vif-create vm-uuid="$vm_uuid" network-uuid="$network_uuid" device="0"
-xecommand vm-cd-add uuid="$vm_uuid" device=1 cd-name="xs-tools.iso"
+$(xecommand vif-create vm-uuid="$vm_uuid" network-uuid="$network_uuid" device="0")
+$(xecommand vm-cd-add uuid="$vm_uuid" device=1 cd-name="xs-tools.iso")
 xecommand vm-start vm="$vm_uuid"
 
 while [[ "$vm_uuid" == $(xecommand vm-list uuid="$vm_uuid" power-state=running --minimal) ]]; do
@@ -51,7 +51,7 @@ while [[ "$vm_uuid" == $(xecommand vm-list uuid="$vm_uuid" power-state=running -
 done
 
 sshcommand "rm /opt/xensource/www/$temp_kickstart_filename"
-xecommand vm-cd-eject vm="$vm_uuid"
+$(xecommand vm-cd-eject vm="$vm_uuid")
 
 network_uuid=$(./configure-internal-network.sh)
 vif_uuid=$(xecommand vif-create device=1 network-uuid=$network_uuid vm-uuid=$vm_uuid)
