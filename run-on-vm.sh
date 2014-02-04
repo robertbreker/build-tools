@@ -40,4 +40,4 @@ done
 tmpdir=$(sshcommand mktemp -d)
 sshpass -p "$VMPASSWORD" scp -o StrictHostKeyChecking=no -r ./ root@"$ip":"$tmpdir"
 basename=$(basename "$SCRIPT")
-sshpass -p "$VMPASSWORD" ssh -o StrictHostKeyChecking=no root@"$ip" "$tmpdir/$basename" "${@:6}"
+sshpass -p "$VMPASSWORD" ssh -o StrictHostKeyChecking=no root@"$ip" "cd $tmpdir; ./$basename" "${@:6}"
