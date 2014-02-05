@@ -7,7 +7,7 @@ DIR=$(pwd)
 ./configure-nfs.sh
 ./configure-mysql.sh
 
-cat >/etc/sysconfig/networking/devices/ifcfg-eth1 <<EOL
+cat >/etc/sysconfig/network-scripts/ifcfg-eth1 <<EOL
 # Please read /usr/share/doc/initscripts-*/sysconfig.txt
 # for the documentation of these parameters.
 DEVICE=eth1
@@ -21,7 +21,7 @@ ONBOOT=yes
 USERCTL=no
 EOL
 mac=$(cat /sys/class/net/eth1/address)
-sed -i "s/<mac>/$mac/g" /etc/sysconfig/networking/devices/ifcfg-eth1
+sed -i "s/<mac>/$mac/g" /etc/sysconfig/network-scripts/ifcfg-eth1
 service network restart
 
 yum -y groupinstall "Development Tools"
