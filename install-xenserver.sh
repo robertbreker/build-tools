@@ -18,7 +18,7 @@ INSTALL_ISO=$4
 VM_NAME="xenservervm"
 NETWORK_NAME="internal-network"
 
-./configure-internal-network.sh
+NETWORK_UUID=$(./configure-internal-network.sh)
 
 fetch_git_repo https://github.com/robertbreker/virtual-hypervisor.git -b minorbugfixes
 
